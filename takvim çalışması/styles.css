@@ -1,0 +1,656 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.add-task-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.add-task-section h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.section-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: #667eea;
+}
+
+.tab-btn.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
+.tab-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.import-instructions {
+    background: #f5f7fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.import-instructions ul {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.import-instructions li {
+    margin: 8px 0;
+    color: #555;
+}
+
+.file-upload-area {
+    text-align: center;
+    padding: 30px;
+    border: 3px dashed #667eea;
+    border-radius: 10px;
+    margin: 20px 0;
+    transition: all 0.3s;
+}
+
+.file-upload-area:hover {
+    background: #f5f7fa;
+    border-color: #764ba2;
+}
+
+.btn-upload {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btn-upload:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+}
+
+.file-name {
+    margin-top: 15px;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.example-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f5f7fa;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.example-section h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.btn-template {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btn-template:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.export-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.export-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e3e7ed 100%);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.export-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.export-card h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.export-card p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+.btn-export {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    width: 100%;
+}
+
+.btn-export:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-add {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-weight: 600;
+    width: 100%;
+}
+
+.btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.calendar-section {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-section h2 {
+    color: #667eea;
+    margin-bottom: 0;
+    font-size: 1.8em;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.view-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.view-btn {
+    padding: 10px 20px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.view-btn:hover {
+    background: #f0f0f0;
+}
+
+.view-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.monthly-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 10px;
+}
+
+.monthly-nav h3 {
+    font-size: 1.5em;
+    color: #667eea;
+    margin: 0;
+}
+
+.nav-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s;
+}
+
+.nav-btn:hover {
+    background: #764ba2;
+    transform: scale(1.05);
+}
+
+.monthly-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.month-day-header {
+    background: #667eea;
+    color: white;
+    padding: 15px 10px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 0.9em;
+}
+
+.month-day {
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 10px;
+    min-height: 120px;
+    position: relative;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.month-day:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.month-day.other-month {
+    opacity: 0.3;
+}
+
+.month-day.today {
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    border-color: #fdd835;
+}
+
+.day-number {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.day-tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.mini-task {
+    background: white;
+    padding: 6px 8px;
+    border-radius: 5px;
+    font-size: 0.75em;
+    border-left: 3px solid #667eea;
+    cursor: pointer;
+    transition: all 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mini-task:hover {
+    background: #667eea;
+    color: white;
+    transform: scale(1.02);
+}
+
+.mini-task.completed {
+    opacity: 0.5;
+    text-decoration: line-through;
+    border-left-color: #4caf50;
+}
+
+.task-count {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #667eea;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    font-weight: 700;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    background: #f0f0f0;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.task-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid #667eea;
+}
+
+.task-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.task-day {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.task-subject {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.task-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.task-info-item strong {
+    color: #667eea;
+}
+
+.task-description {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
+}
+
+.task-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-complete,
+.btn-delete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+.btn-complete {
+    background: #4caf50;
+    color: white;
+    flex: 1;
+}
+
+.btn-complete:hover {
+    background: #45a049;
+}
+
+.btn-delete {
+    background: #f44336;
+    color: white;
+    flex: 1;
+}
+
+.btn-delete:hover {
+    background: #da190b;
+}
+
+.task-card.completed {
+    opacity: 0.6;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-left-color: #4caf50;
+}
+
+.task-card.completed .task-subject {
+    text-decoration: line-through;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #333;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state p {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.empty-state .emoji {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .add-task-section,
+    .calendar-section {
+        padding: 20px;
+    }
+
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-buttons {
+        justify-content: center;
+    }
+
+    .filter-btn {
+        font-size: 0.85em;
+        padding: 8px 15px;
+    }
+}

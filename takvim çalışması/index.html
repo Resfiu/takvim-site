@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haftalık Çalışma Takvimi</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Haftalık Çalışma Takvimi</h1>
+            <p class="subtitle">Çalışma programını düzenle ve takip et</p>
+        </header>
+
+        <div class="add-task-section">
+            <div class="section-tabs">
+                <button class="tab-btn active" data-tab="manual">✍️ Manuel Ekle</button>
+                <button class="tab-btn" data-tab="import">📁 Excel'den İçe Aktar</button>
+                <button class="tab-btn" data-tab="export">💾 Dışa Aktar</button>
+            </div>
+
+            <!-- Manuel Ekleme -->
+            <div id="manualTab" class="tab-content">
+                <h2>Yeni Çalışma Ekle</h2>
+                <form id="taskForm">
+                <div class="form-group">
+                    <label for="day">Gün:</label>
+                    <select id="day" required>
+                        <option value="">Gün Seçin</option>
+                        <option value="Pazartesi">Pazartesi</option>
+                        <option value="Salı">Salı</option>
+                        <option value="Çarşamba">Çarşamba</option>
+                        <option value="Perşembe">Perşembe</option>
+                        <option value="Cuma">Cuma</option>
+                        <option value="Cumartesi">Cumartesi</option>
+                        <option value="Pazar">Pazar</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Ders/Konu:</label>
+                    <input type="text" id="subject" placeholder="Örn: Matematik" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="time">Saat:</label>
+                    <input type="time" id="time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Süre (dakika):</label>
+                    <input type="number" id="duration" placeholder="Örn: 60" min="15" step="15" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="platform">Platform/Yer:</label>
+                    <input type="text" id="platform" placeholder="Örn: Evde, Kütüphane, Online">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Açıklama:</label>
+                    <textarea id="description" rows="3" placeholder="Çalışma detayları..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-add">➕ Ekle</button>
+            </form>
+            </div>
+
+            <!-- Excel İçe Aktarma -->
+            <div id="importTab" class="tab-content" style="display: none;">
+                <h2>Excel'den İçe Aktar</h2>
+                <div class="import-instructions">
+                    <p>📋 Excel dosyanız şu sütunları içermelidir:</p>
+                    <ul>
+                        <li><strong>Gün:</strong> Pazartesi, Salı, Çarşamba, vb.</li>
+                        <li><strong>Ders/Konu:</strong> Çalışma konusu</li>
+                        <li><strong>Saat:</strong> Başlangıç saati (örn: 14:00)</li>
+                        <li><strong>Süre:</strong> Dakika cinsinden (örn: 60)</li>
+                        <li><strong>Platform:</strong> (İsteğe bağlı)</li>
+                        <li><strong>Açıklama:</strong> (İsteğe bağlı)</li>
+                    </ul>
+                    <p>💡 CSV veya Excel (.xlsx) dosyası yükleyebilirsiniz</p>
+                </div>
+                
+                <div class="file-upload-area">
+                    <input type="file" id="excelFile" accept=".csv,.xlsx,.xls" style="display: none;">
+                    <button onclick="document.getElementById('excelFile').click()" class="btn-upload">
+                        📂 Dosya Seç
+                    </button>
+                    <p id="fileName" class="file-name"></p>
+                </div>
+                
+                <button id="importBtn" class="btn-add" style="display: none;">
+                    ⬆️ İçe Aktar
+                </button>
+
+                <div class="example-section">
+                    <h3>Örnek Excel Formatı:</h3>
+                    <button onclick="downloadTemplate()" class="btn-template">
+                        📥 Şablon İndir
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dışa Aktarma -->
+            <div id="exportTab" class="tab-content" style="display: none;">
+                <h2>Verileri Dışa Aktar</h2>
+                <div class="export-options">
+                    <div class="export-card">
+                        <h3>📊 Excel Olarak İndir</h3>
+                        <p>Tüm çalışmalarınızı Excel dosyası olarak indirin</p>
+                        <button onclick="exportToExcel()" class="btn-export">
+                            💾 Excel İndir (.xlsx)
+                        </button>
+                    </div>
+                    
+                    <div class="export-card">
+                        <h3>📄 CSV Olarak İndir</h3>
+                        <p>Çalışmalarınızı CSV formatında indirin</p>
+                        <button onclick="exportToCSV()" class="btn-export">
+                            💾 CSV İndir (.csv)
+                        </button>
+                    </div>
+                    
+                    <div class="export-card">
+                        <h3>🖨️ Yazdırılabilir</h3>
+                        <p>Çalışma programınızı yazdırın</p>
+                        <button onclick="printSchedule()" class="btn-export">
+                            🖨️ Yazdır
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calendar-section">
+            <div class="calendar-header">
+                <h2>Çalışma Takvimi</h2>
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="weekly">📅 Haftalık</button>
+                    <button class="view-btn" data-view="monthly">🗓️ Aylık</button>
+                </div>
+            </div>
+
+            <!-- Aylık Takvim Navigasyonu -->
+            <div id="monthlyNav" class="monthly-nav" style="display: none;">
+                <button id="prevMonth" class="nav-btn">◀</button>
+                <h3 id="currentMonth"></h3>
+                <button id="nextMonth" class="nav-btn">▶</button>
+            </div>
+
+            <!-- Haftalık Görünüm -->
+            <div id="weeklyView">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-day="all">Tümü</button>
+                    <button class="filter-btn" data-day="Pazartesi">Pazartesi</button>
+                    <button class="filter-btn" data-day="Salı">Salı</button>
+                    <button class="filter-btn" data-day="Çarşamba">Çarşamba</button>
+                    <button class="filter-btn" data-day="Perşembe">Perşembe</button>
+                    <button class="filter-btn" data-day="Cuma">Cuma</button>
+                    <button class="filter-btn" data-day="Cumartesi">Cumartesi</button>
+                    <button class="filter-btn" data-day="Pazar">Pazar</button>
+                </div>
+                <div id="calendar" class="calendar-grid"></div>
+            </div>
+
+            <!-- Aylık Görünüm -->
+            <div id="monthlyView" style="display: none;">
+                <div id="monthlyCalendar" class="monthly-calendar"></div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-card">
+                <h3>Toplam Çalışma</h3>
+                <p class="stat-number" id="totalTasks">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Bu Hafta</h3>
+                <p class="stat-number" id="weeklyHours">0 saat</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
